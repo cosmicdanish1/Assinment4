@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemical Supplies Management</title>
+  <link rel="stylesheet" href="styles.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+  <h1>Chemical supplies</h1>
+  <!-- Toolbar Section -->
+  <div id="toolbar" class="toolbar">
+    <!-- Add row button with plus icon -->
+     
+    <button onclick="addRow()">
+      <i class="fas fa-plus"></i> 
+    </button>
+  
+    <!-- Move row up button with up arrow icon -->
+    <button onclick="moveRowUp()">
+      <i class="fas fa-arrow-up"></i> 
+    </button>
+  
+    <!-- Move row down button with down arrow icon -->
+    <button onclick="moveRowDown()">
+      <i class="fas fa-arrow-down"></i> 
+    </button>
+  
+    <!-- Delete row button with cross icon -->
+    <button onclick="deleteRow()">
+      <i class="fas fa-times"></i> 
+    </button>
+  
+    <!-- Save button with save icon -->
+    <button onclick="saveTable()">
+      <i class="fas fa-save"></i>
+    </button>
+  
+    <!-- Refresh button with refresh icon -->
+    <button onclick="refreshTable()">
+      <i class="fas fa-sync-alt"></i> 
+    </button>
+  </div>
+  
+
+  <!-- Table Section -->
+  <table id="chemicalTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">ID</th>
+        <th onclick="sortTable(1)">Chemical Name</th>
+        <th onclick="sortTable(2)">Vendor</th>
+        <th onclick="sortTable(3)">Density (g/m³)</th>
+        <th onclick="sortTable(4)">Viscosity (m²/s)</th>
+        <th onclick="sortTable(5)">Packaging</th>
+        <th onclick="sortTable(6)">Pack Size</th>
+        <th onclick="sortTable(7)">Unit</th>
+        <th onclick="sortTable(8)">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- The table rows will be dynamically populated -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
