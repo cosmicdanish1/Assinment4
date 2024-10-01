@@ -1,3 +1,4 @@
+// Sample Data
 let data = [
   {
     id: 1,
@@ -23,12 +24,14 @@ let data = [
   }
 ];
 
+// Selected Row Index
+let selectedRowIndex = null;
 
 // Populate the table with initial data
 function populateTable() {
   const tbody = document.querySelector('#chemicalTable tbody');
   tbody.innerHTML = ''; // Clear table before re-rendering
-  
+
   data.forEach((item, index) => {
     let row = `<tr data-index="${index}">
       <td>${item.id}</td>
@@ -43,100 +46,167 @@ function populateTable() {
     </tr>`;
     tbody.insertAdjacentHTML('beforeend', row);
   });
+
+  addRowClickEvents();
 }
 
-populateTable();
+// Add click events to table rows for selection
+function addRowClickEvents() {
+  const rows = document.querySelectorAll("#chemicalTable tbody tr");
+  rows.forEach(row => {
+    row.addEventListener('click', () => {
+      // Remove highlight from previously selected row
+      if (selectedRowIndex !== null) {
+        const prevSelectedRow = document.querySelector(`#chemicalTable tbody tr[data-index="${selectedRowIndex}"]`);
+        if (prevSelectedRow) {
+          prevSelectedRow.classList.remove('highlight');
+        }
+      }
 
+      // Highlight the clicked row
+      row.classList.add('highlight');
+      selectedRowIndex = parseInt(row.getAttribute('data-index'));
+    });
+  });
+}
 
+// Sort the table based on column index
 function sortTable(columnIndex) {
-  let rows = Array.from(document.querySelectorAll("#chemicalTable tbody tr"));
-  let sortedRows = rows.sort((rowA, rowB) => {
-    let cellA = rowA.cells[columnIndex].innerText.toLowerCase();
-    let cellB = rowB.cells[columnIndex].innerText.toLowerCase();
+  // Sort data array
+  data.sort((a, b) => {
+    let aValue = Object.values(a)[columnIndex];
+    let bValue = Object.values(b)[columnIndex];
 
-    return cellA.localeCompare(cellB);
+    if (typeof aValue === 'number' && typeof bValue === 'number') {
+      return aValue - bValue;
+    } else {
+      return aValue.toString().localeCompare(bValue.toString());
+    }
   });
 
-  // Clear and re-add sorted rows
-  const tbody = document.querySelector("#chemicalTable tbody");
-  tbody.innerHTML = "";
-  sortedRows.forEach(row => tbody.appendChild(row));
-}
-
-
-
-function addRow() {
-  const newRow = {
-    id: data.length + 1,
-    chemicalName: "New Chemical",
-    vendor: "New Vendor",
-    density: 0,
-    viscosity: 0,
-    packaging: "Bag",
-    packSize: 0,
-    unit: "kg",
-    quantity: 0
-  };
-  
-  data.push(newRow);
   populateTable();
 }
 
-function deleteRow() {
-  let selectedRow = document.querySelector("#chemicalTable tbody tr.selected");
-  if (selectedRow) {
-    let index = selectedRow.getAttribute("data-index");
-    data.splice(index, 1);
-    populateTable();
-  }
-}
-
+// Move the selected row up
 function moveRowUp() {
-  let selectedRow = document.querySelector("#chemicalTable tbody tr.selected");
-  if (selectedRow) {
-    let index = parseInt(selectedRow.getAttribute("data-index"));
-    if (index > 0) {
-      [data[index - 1], data[index]] = [data[index], data[index - 1]];
-      populateTable();
-    }
-  }
-}
+  if (selectedRowIndex === null || selectedRowIndex === 0) return;
 
-function moveRowDown() {
-  let selectedRow = document.querySelector("#chemicalTable tbody tr.selected");
-  if (selectedRow) {
-    let index = parseInt(selectedRow.getAttribute("data-index"));
-    if (index < data.length - 1) {
-      [data[index + 1], data[index]] = [data[index], data[index + 1]];
-      populateTable();
-    }
-  }
-}
-
-function refreshTable() {
-  populateTable(); // Reloads initial data
-}
-
-function saveTable() {
-  localStorage.setItem("tableData", JSON.stringify(data));
-  alert("Table saved!");
-}
-
-// Restore table from saved state if available
-if (localStorage.getItem("tableData")) {
-  data = JSON.parse(localStorage.getItem("tableData"));
+  // Swap the selected row with the one above it
+  [data[selectedRowIndex - 1], data[selectedRowIndex]] = [data[selectedRowIndex], data[selectedRowIndex - 1]];
+  selectedRowIndex -= 1;
   populateTable();
 }
 
+// Move the selected row down
+function moveRowDown() {
+  if (selectedRowIndex === null || selectedRowIndex === data.length - 1) return;
 
+  // Swap the selected row with the one below it
+  [data[selectedRowIndex + 1], data[selectedRowIndex]] = [data[selectedRowIndex], data[selectedRowIndex + 1]];
+  selectedRowIndex += 1;
+  populateTable();
+}
 
+// Increment the quantity in the selected row
+function incrementValue() {
+  if (selectedRowIndex === null) return;
 
-document.querySelector("#chemicalTable tbody").addEventListener("click", function(event) {
-  let rows = document.querySelectorAll("#chemicalTable tbody tr");
-  rows.forEach(row => row.classList.remove("selected"));
+  data[selectedRowIndex].quantity += 1;
+  populateTable();
+}
 
-  event.target.parentNode.classList.add("selected"); // Highlight selected row
-});
+// Decrement the quantity in the selected row
+function decrementValue() {
+  if (selectedRowIndex === null) return;
 
+  data[selectedRowIndex].quantity -= 1;
+  populateTable();
+}
 
+// Delete the selected row
+function deleteRow() {
+  if (selectedRowIndex === null) return;
 
+  data.splice(selectedRowIndex, 1);
+  selectedRowIndex = null;
+  populateTable();
+}
+
+// Save the table (you can implement this as needed)
+function saveTable() {
+  // Example: Save data to localStorage
+  localStorage.setItem('chemicalData', JSON.stringify(data));
+  alert('Table saved successfully!');
+}
+
+// Refresh the table (reload data)
+function refreshTable() {
+  // Example: Reload data from localStorage
+  const storedData = localStorage.getItem('chemicalData');
+  if (storedData) {
+    data = JSON.parse(storedData);
+    populateTable();
+    alert('Table refreshed!');
+  } else {
+    alert('No saved data found.');
+  }
+}
+
+// Close modal function
+function closeModal() {
+  const modal = document.getElementById("modal");
+  modal.style.display = "none"; // Hide modal
+}
+
+// Show modal function
+function showModal() {
+  const modal = document.getElementById("modal");
+  modal.style.display = "block"; // Show modal
+}
+
+// Add a new chemical
+function addNewChemical() {
+  const newChemical = {
+    id: data.length > 0 ? data[data.length - 1].id + 1 : 1,
+    chemicalName: document.getElementById("chemicalName").value,
+    vendor: document.getElementById("vendor").value,
+    density: parseFloat(document.getElementById("density").value),
+    viscosity: parseFloat(document.getElementById("viscosity").value),
+    packaging: document.getElementById("packaging").value,
+    packSize: parseFloat(document.getElementById("packSize").value),
+    unit: document.getElementById("unit").value,
+    quantity: parseFloat(document.getElementById("quantity").value),
+  };
+
+  // Validate input
+  if (!newChemical.chemicalName || !newChemical.vendor) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Add new chemical to data and re-populate the table
+  data.push(newChemical);
+  populateTable();
+
+  // Clear input fields and close the modal
+  closeModal();
+  document.getElementById("chemicalName").value = '';
+  document.getElementById("vendor").value = '';
+  document.getElementById("density").value = '';
+  document.getElementById("viscosity").value = '';
+  document.getElementById("packaging").value = '';
+  document.getElementById("packSize").value = '';
+  document.getElementById("unit").value = '';
+  document.getElementById("quantity").value = '';
+}
+
+// Prevent clicking outside the modal to close it
+window.onclick = function(event) {
+  const modal = document.getElementById("modal");
+  if (event.target == modal) {
+    closeModal();
+  }
+};
+
+// Initial Call to Populate Table
+document.addEventListener('DOMContentLoaded', populateTable);
