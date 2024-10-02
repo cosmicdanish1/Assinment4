@@ -1,4 +1,3 @@
-
 let data = [
   {
     id: 1,
@@ -138,7 +137,6 @@ function closeModal() {
   modal.style.display = "none"; 
 }
 
-
 function showModal() {
   const modal = document.getElementById("modal");
   modal.style.display = "block"; 
@@ -183,4 +181,23 @@ window.onclick = function(event) {
   }
 };
 
-document.addEventListener('DOMContentLoaded', populateTable);
+document.addEventListener('DOMContentLoaded', () => {
+  // Check local storage for saved data on page load
+  const storedData = localStorage.getItem('chemicalData');
+  if (storedData) {
+    data = JSON.parse(storedData);
+  }
+  populateTable();
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+  });
+}

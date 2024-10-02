@@ -11,6 +11,8 @@
   
   <style>
   </style>
+  <link rel="manifest" href="manifest.json">
+
 </head>
 <body>
   <div class="container">
@@ -30,7 +32,8 @@
     <button onclick="deleteRow()">
       <i class="fas fa-times"></i>
     </button>
-
+    <button onclick="saveTable()">
+      <i class="fas fa-save"></i>
     <button onclick="refreshTable()">
       <i class="fas fa-sync-alt"></i>
     </button>
@@ -68,7 +71,7 @@
       <input type="text" id="unit" placeholder="Unit" required>
       <input type="number" id="quantity" placeholder="Quantity" required>
       <button onclick="addNewChemical()">
-        <i class="fas fa-save"> Save your chemical</i>
+        <i id="SaveYourChemical"> Save your chemical</i>
       </button>
     </div>
   </div>
