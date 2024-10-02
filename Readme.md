@@ -12,17 +12,9 @@
 2. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
-3. [Usage](#usage)
-4. [Adding New Features](#adding-new-features)
-5. [Testing](#testing)
-6. [Deployment](#deployment)
-7. [Service Workers](#service-workers)
-8. [Manifest File](#manifest-file)
-9. [Troubleshooting](#troubleshooting)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Acknowledgments](#acknowledgments)
-13. [Contact Information](#contact-information)
+3. [static hosted page](#ustatic-hosted-page)
+4. [Installation](#Installation)
+
 
 ---
 
@@ -39,9 +31,10 @@ This app benefits users by providing a centralized platform for managing chemica
 ## **Getting Started**
 
 ### **Prerequisites**
-Before you start, ensure you have the following software installed:
-- Node.js (version 14 or later)
-- npm (Node Package Manager)
+ You can just run it support in every browser
+
+### **static hosted page***
+  visit- https://assinment4-six.vercel.app/
 
 ### **Installation**
 To set up the development environment, follow these steps:
