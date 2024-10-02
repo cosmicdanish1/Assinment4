@@ -5,19 +5,19 @@ body {
 
 
 .container {
-  position: relative; /* Parent element for absolute positioning */
+  position: relative; 
   height: 60px;
-  margin-bottom: 20px; /* Example height */
-   /* Example border */
+  margin-bottom: 20px; 
+  
 }
 
 .chemical {
   position: absolute;
-  top: 50%;          /* Position from the top at 50% of the container's height */
-  left: 50%;         /* Position from the left at 50% of the container's width */
-  transform: translate(-50%, -50%); /* Adjust back by half of its own width and height */
-  color: black;      /* Example color */
-  font-size: 24px;  /* Example font size */
+  top: 50%;          
+  left: 50%;         
+  transform: translate(-50%, -50%); 
+  color: black;     
+  font-size: 24px;  
 }
 
 
@@ -27,17 +27,17 @@ body {
 
 .toolbar {
   display: flex;
-  justify-content: flex-end; /* Aligns buttons to the left */
-  gap: 10px; /* Adds space between buttons */
+  justify-content: flex-end; 
+  gap: 10px; 
 }
 
 button {
   display: flex;
-  align-items: center; /* Centers icon and text vertically */
-  gap: 5px; /* Space between icon and text */
+  align-items: center; 
+  gap: 5px; 
   padding: 5px 10px;
-  background-color: transparent; /* Transparent background */
-  border: none; /* Removes button borders */
+  background-color: transparent;
+  border: none; 
   cursor: pointer;
   font-size: 16px;
 }
@@ -72,33 +72,33 @@ tr:hover {
 }
 
 button i {
-  font-size: 16px; /* Adjust icon size */
+  font-size: 16px; 
 }
 
 button:hover {
-  background-color: #ddd; /* Adds hover effect */
+  background-color: #ddd; 
 }
 
-/* Modal Styles */
+
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0, 0, 0); 
+  background-color: rgba(0, 0, 0, 0.7); 
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto; 
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%; 
 }
 
 
@@ -116,9 +116,9 @@ button:hover {
   cursor: pointer;
 }
 
-/* Highlighted Column */
+
 .highlight {
-  background-color: rgba(255, 215, 0, 0.5); /* Gold color for highlight */
+  background-color: rgba(255, 215, 0, 0.5); 
 }
 
 
